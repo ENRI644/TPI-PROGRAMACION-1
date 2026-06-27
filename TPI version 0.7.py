@@ -29,6 +29,8 @@
 # *****************************************************
 
 
+import random #BIBLIOTECA DE PYTHON
+
 def ingresoNum (): #FUNCION PARA ASEGURARME QUE SE INGRESA UN NUMERO.
     band = True
     while (band):
@@ -58,18 +60,57 @@ def controlMenus (mensaje,opc): #FUNCION PARA CONTROLAR LOS MENUS ENTRE EL JUEGO
                 if opc == 4:
                     Juego4()
                 elif opc == 6:
-                    Juego6()
+                    print("LLAMO AL JUEGO 6 (EN DESARROLLO)")
                 elif opc == 1:
-                    print("LLAMO AL JUEGO 1")
+                    juego1()
                 elif opc == 2:
-                    print("LLAMO AL JUEGO 2")   
+                    print("LLAMO AL JUEGO 2 (EN DESARROLLO)")   
                 elif opc == 3:
-                    print("LLAMO AL JUEGO 3")
+                    print("LLAMO AL JUEGO 3 (EN DESARROLLO)")
                 elif opc == 5:
-                    print("LLAMO AL JUEGO 5")
+                    print("LLAMO AL JUEGO 5 (EN DESARROLLO)")
             else:
                 print("OPCION INVALIDA, INGRESE 1 PARA JUGAR O 0 PARA VOLVER AL MENU")
             jugar = -1
+
+#ADIVINA EL NUMERO
+#JUEGO DONDE EL USUARIO DEBE ADIINAR UN NUMERO GENERADO ALEATORIAMENTE POR LA COMPUTADORA
+#EL PROGRAMA VA DANDO PISTAS HASTA QUE EL JUGADOR ACIERTA.
+
+def guardar_puntaje(intentos): #SIRVE PARA GUARDAR EN UN ARCHIVO CUANTOS INTENTOS NECESITO
+    archivo = open("puntajes.txt", "a") #PYHTON CREA EL ARCHIVO AUTOMATICAMENTE SI NO EXISTE
+    archivo.write("Ganó en " + str(intentos) + " intentos\n")
+    archivo.close() #SE CIERRA EL ARCHIVO.
+
+def juego1():
+    numero_secreto = random.randint(1, 20) #PARA GENERAR NUMEROS AL AZAR
+    intentos = 0
+
+    print("=== ADIVINA EL NÚMERO ===")
+    print("Debes adivinar un número entre 1 y 20") #INSTRUCCIONES SENCILLAS
+
+    historial=[] #CREA UNA LISTA VACIA 
+
+    while True: #REPETIR HASTA ENCONTRAR EL NUMERO CORRECTO
+        
+        numero = ingresoNum() #PIDE EL NUMERO AL USUARIO
+        historial.append(numero) #AGREGA A LA LISTA LOS INTENTOS DEL USUARIO
+        intentos += 1
+
+#COMPARA LAS RESPUESTAS Y DA LAS PISTAS
+        if numero < numero_secreto:
+            print("Más alto")
+
+        elif numero > numero_secreto:
+            print("Más bajo")
+
+        else:
+            print("¡Correcto!")
+            print("Lo lograste en", intentos, "intentos")
+            print("Tus intentos fueron: ", historial)
+            guardar_puntaje(intentos) #GUARDA EL RESULTADO
+            break
+
 
 def Juego4 (): #AHORCADO
     print("AHORCADO")
@@ -77,7 +118,6 @@ def Juego4 (): #AHORCADO
     vidas = 6
     letrasErradas = []
     palabra = input("ingrese la palabra a adivinar: ")
-    #HACER ELCODIGO DEL JUEGO.
     palabraVec = PalabraVector(palabra) #PASO LA PALÑABRA A UN VECTOR
     adivina = PalabraOculta(palabraVec) #USO UN VECTOR AUXILIAR PARA MOSTRAR LOS GUIONES
     aciertos = 0
@@ -99,24 +139,19 @@ def Juego4 (): #AHORCADO
             print("GNASTE, ADIVINASTE LA PALABRA")
         else:
             print("PERDISTE, te quedaste sion vidas. La palabra era: ", palabra)
-    #print("FUNCIONO")
     return
 
-def Juego6 (): #VEINTIUNO
-    jugadores = 0
-    while (jugadores < 1 or jugadores > 4): #CONTORLO QUE LOS JUGADORES SEAN CORRECTOS
-        print("VEINTIUNO")
-        print("Cuantos jugadores son (min 1 max 4)?")
-        jugadores = ingresoNum()
-        if (jugadores < 1 or jugadores > 4):
-            print("OPCION INVALIDA, INGRESE UN NUMERO ENTRE 1 Y 4")
-    #HACER EL CODIGO DEL JUEGO
-    return
+# def Juego6 (): #VEINTIUNO
+#     jugadores = 0
+#     while (jugadores < 1 or jugadores > 4): #CONTORLO QUE LOS JUGADORES SEAN CORRECTOS
+#         print("VEINTIUNO")
+#         print("Cuantos jugadores son (min 1 max 4)?")
+#         jugadores = ingresoNum()
+#         if (jugadores < 1 or jugadores > 4):
+#             print("OPCION INVALIDA, INGRESE UN NUMERO ENTRE 1 Y 4")
+#     #HACER EL CODIGO DEL JUEGO
+#     return
 
-def Juego1 (): #JUEGO A
-    print("JUEGO A")
-    #HACER EL CODIGO DEL JUEGO A QUIEN CORRESPONDA
-    return
 def Juego2 (): #JUEGO B
     print("JUEGO B")
     #HACER EL CODIGO DEL JUEGO B QUIEN CORRESPONDA
@@ -129,7 +164,6 @@ def Juego5 (): #JUEGO E
     print("JUEGO E")
     #HACER EL CODIGO DEL JUEGO E QUIEN CORRESPONDA
     return
-
 
 def PalabraVector (palabra): #FUNCION PARA TRANSFORMAR UNA PALABRA EN UN VECTOR DE LETRAS.
     vector = [0] * len(palabra)
@@ -149,27 +183,30 @@ opc = -1 #VARIABLE USADA PARA EL MENU PRINCIPAL
 #PROCESOS (MENU PRINCIPAL)
 while (opc !=0): #MENU PRINCIPAL DE LOS JUEGOS, SE REPETIRA HASTA QUE EL USUARIO DECIDA SALIR INGRESANDO 0.
     print("¿Que juego desea probar?")
-    print("1 - Juego A")
+    print("1 - ADIVINA EL NUMERO (1 JUGADOR)") #DANI
     print("2 - Juego B")
     print("3 - Juego C")
     print("4 - AHORCADO (2 JUGADORES)") #ENRI estuvo aqui
     print("5 - Juego E")
-    print("6 - VEINTIUNO (1 A 4 JUGADORES)") #ENRI estuvo aqui
+    print("6 - Juego F")
     print("0 - SALIR")
     opc=ingresoNum()
     LimpiarPantalla()
     if(opc > 6 or opc < 0):
         print("OPCION INVALIDA, INGRESE UN NUMERO ENTRE 0 Y 6")
+    elif(opc == 1):
+        reglas = "=== ADIVINA EL NÚMERO === \n Debes adivinar un número entre 1 y 20"
+    elif(opc == 2):
+        reglas = "Reglas del juego B(EN DESARROLLO)"
+    elif(opc == 3):
+        reglas = "Reglas del juego C (EN DESARROLLO)"
     elif(opc == 4):
-        #print("LLAMO AL JUEGO 4")
-        #Juego4()
         reglas = "2 jugadores, el primero ingresa una palabra y el segundo debe adivinarla letra por letra, tiene 6 vidas"
+    elif(opc == 5):
+        reglas = "Reglas del juego E (EN DESARROLLO)"
     elif(opc == 6):
-        #print("LLAMO AL JUEGO 6")
-        reglas = "El objetivo del juego es sumar 21 o acercarse lo mas posible sin pasarse, el jugador que se pase pierde"
-        #Juego6()
+        reglas = "Reglas del juego F (EN DESARROLLO)"
     elif(opc == 0):
         print("Gracias vuelva pronto")
     if(opc < 7 and opc > 0):
         controlMenus(reglas,opc) #LLAMO A LA FUNCION Y LE PASO LAS REGLAS Y EL NUMERO DEL JUEGO QUE SE ELIJIO
-#prueba0 = int(input(print("Ingrese un numero")))
