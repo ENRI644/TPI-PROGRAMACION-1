@@ -1,34 +1,3 @@
-# La empresa Play.In desea desarrollar una plataforma educativa destinada a estudiantes de
-# nivel primario que permita aprender mediante actividades interactivas.
-# Para ello solicita a los equipos de desarrollo la construcción de una aplicación que integre
-# distintos juegos o herramientas didácticas dentro de un único sistema.
-# El objetivo es que el usuario pueda elegir libremente qué actividad utilizar y regresar al menú
-# principal tantas veces como desee.
-# Cada integrante del equipo deberá ser responsable principal del desarrollo de al menos una
-# actividad, aunque todo el grupo será responsable del funcionamiento integral del sistema.
-# Ejemplo
-# ****************************************************
-# BIENVENIDOS A 4IN1
-# ****************************************************
-# 1- Ahorcado
-# 2- Adivina la palabra
-# 3- A Multiplicar
-# 4- ¿Cuánto conoces los números?
-# 0- Salir
-# Ingresa tu opción:
-# *****************************************************
-# (si ingreso 4)
-# ****************************************************
-# 4-¿Cuánto conoces los números?
-# ****************************************************
-# ¿El número 3 es un número primo?
-# 1- Si
-# 2- No
-# 3- Volver al menú sin contestar
-# Ingresa tu opción:
-# *****************************************************
-
-
 import random #BIBLIOTECA DE PYTHON
 
 def ingresoNum (): #FUNCION PARA ASEGURARME QUE SE INGRESA UN NUMERO.
@@ -60,7 +29,7 @@ def controlMenus (mensaje,opc): #FUNCION PARA CONTROLAR LOS MENUS ENTRE EL JUEGO
                 if opc == 4:
                     Juego4()
                 elif opc == 6:
-                    print("LLAMO AL JUEGO 6 (EN DESARROLLO)")
+                    Juego6()
                 elif opc == 1:
                     juego1()
                 elif opc == 2:
@@ -72,15 +41,6 @@ def controlMenus (mensaje,opc): #FUNCION PARA CONTROLAR LOS MENUS ENTRE EL JUEGO
             else:
                 print("OPCION INVALIDA, INGRESE 1 PARA JUGAR O 0 PARA VOLVER AL MENU")
             jugar = -1
-
-#ADIVINA EL NUMERO
-#JUEGO DONDE EL USUARIO DEBE ADIINAR UN NUMERO GENERADO ALEATORIAMENTE POR LA COMPUTADORA
-#EL PROGRAMA VA DANDO PISTAS HASTA QUE EL JUGADOR ACIERTA.
-
-# def guardar_puntaje(intentos): #SIRVE PARA GUARDAR EN UN ARCHIVO CUANTOS INTENTOS NECESITO
-#     archivo = open("puntajes.txt", "a") #PYHTON CREA EL ARCHIVO AUTOMATICAMENTE SI NO EXISTE
-#     archivo.write("Ganó en " + str(intentos) + " intentos\n")
-#     archivo.close() #SE CIERRA EL ARCHIVO.
 
 def juego1():
     numero_secreto = random.randint(1, 20) #PARA GENERAR NUMEROS AL AZAR
@@ -109,10 +69,8 @@ def juego1():
             print("¡Correcto!")
             print("Lo lograste en", intentos, "intentos")
             print("Tus intentos fueron: ", historial)
-            #guardar_puntaje(intentos) #GUARDA EL RESULTADO
             break
     return
-
 
 def Juego4 (): #AHORCADO
     print("AHORCADO")
@@ -138,21 +96,10 @@ def Juego4 (): #AHORCADO
             vidas -= 1
             letrasErradas.append(letra)
         if (aciertos == len(adivina)):
-            print("GNASTE, ADIVINASTE LA PALABRA")
+            print("GNASTE, ADIVINASTE LA PALABRA, ", palabra)
         else:
             print("PERDISTE, te quedaste sion vidas. La palabra era: ", palabra)
     return
-
-# def Juego6 (): #VEINTIUNO
-#     jugadores = 0
-#     while (jugadores < 1 or jugadores > 4): #CONTORLO QUE LOS JUGADORES SEAN CORRECTOS
-#         print("VEINTIUNO")
-#         print("Cuantos jugadores son (min 1 max 4)?")
-#         jugadores = ingresoNum()
-#         if (jugadores < 1 or jugadores > 4):
-#             print("OPCION INVALIDA, INGRESE UN NUMERO ENTRE 1 Y 4")
-#     #HACER EL CODIGO DEL JUEGO
-#     return
 
 def Juego2 ():
     print("¡Bienvenido a la Búsqueda del tesoro!")
@@ -181,8 +128,6 @@ def Juego2 ():
     tesoro_x = random.randint(1, tamaño)
     tesoro_y = random.randint(1, tamaño)
 
-    #intentos = 0
-
     # JUEGO
     while True:
         x = int(input(f"Ingrese fila (1 a {tamaño}): "))
@@ -193,13 +138,10 @@ def Juego2 ():
             print("❌ Fuera de rango")
             continue
 
-        #intentos += 1
-
         # comparar con el tesoro
         if x == tesoro_x and y == tesoro_y:
             LimpiarPantalla()
             print("¡Encontraste el tesoro!")
-            #guardar_puntaje(intentos)
             break
         else:
             print("Ups! ahí no estaba, segui intentando 👉")
@@ -250,8 +192,6 @@ def Juego3 ():
 
     return
 
-# Función principal del juego.
-# Aquí se desarrolla toda la partida.
 def Juego5 (): #JUEGO E
     # Variables para guardar los puntos.
     puntos_jugador = 0
@@ -303,6 +243,88 @@ def Juego5 (): #JUEGO E
         print("La partida terminó en empate.")
     return
 
+def Juego6():
+
+    LimpiarPantalla()
+
+    print("DESAFIO MATEMATICO")
+    print("resuelve corectamente las 5 operaciones y gana puntos") #INSTRUCCIONES
+
+    nombre = input("Ingrese su nombre: ")#PIDO EL NOMBRE AL JUGADOR Y LO GUARDO EN LA VARIABLE NOMBRE 
+
+    puntos = 0 #INICIALIZO UNA VARIABLE DE PUNTOS EN 0 PARA CONTARLOS 
+
+    operaciones = ["+","-","*"] #GUARDO LAS OPERACIONES QUE VOY A UTILIZAR 
+
+    for i in range(5):
+
+        LimpiarPantalla()
+
+        print("DESAFIO MATEMATICO")
+        print("Jugador: ",nombre)
+        print("Puntaje: ",puntos)
+        print("-------------------------")
+        print("Pregunta",i+1)
+
+        num1 = random.randint(1,10) #PARA QUE ELIJA NUMEROS AL AZAR PARA LAS OPERACIONES  
+        num2 = random.randint(1,10)
+
+        operacion = random.choice(operaciones)#PARA QUE ELIJA UNA OPERACION AL AZAR 
+        #SUMA  
+        if operacion == "+":
+            resultado = num1 + num2
+
+        # RESTA
+        elif operacion == "-":
+
+        # EVITA RESULTADOS NEGATIVOS
+            if num2 > num1:
+                aux = num1
+                num1 = num2
+                num2 = aux
+
+            resultado = num1 - num2
+        # MULTIPLICACION
+        else:
+            resultado = num1 * num2    
+       
+        #MUESTRO LA OPERACION PARA EL JUGADOR 
+        print()
+        print(num1,operacion,num2)
+        #PIDO EL RESULTADO
+        respuesta = ingresoNum()
+        #SI LA RESPUESTA ES CORRECTA SUMA UN PUNTO
+        if respuesta == resultado:
+
+            print("¡RESPUESTA CORRECTA!")
+            puntos += 1
+        #SI NO LO ES MUESTRO EL RESULTADO  
+        else:
+
+            print("RESPUESTA INCORRECTA.")
+            print("La respuesta correcta era: ",resultado)
+
+        input("Presione ENTER para continuar...")
+
+    LimpiarPantalla()
+    #MUESTRO EL RESULTADO CON EL NOMBRE DEL JUGADOR
+    print("RESULTADO FINAL")
+    print("Jugador:",nombre)
+    print("Puntaje obtenido: ",puntos,"/5")
+
+    if puntos == 5:
+        print("¡¡EXCELENTE!!")
+
+    elif puntos >= 3:
+        print("¡MUY BIEN!")
+
+    else:
+        print("SEGUI PRACTICANDO.")
+
+    print()
+
+    return
+
 def PalabraVector (palabra): #FUNCION PARA TRANSFORMAR UNA PALABRA EN UN VECTOR DE LETRAS.
     vector = [0] * len(palabra)
     for i in range(len(palabra)):
@@ -320,6 +342,7 @@ def PalabraOculta(vector):
 def lanzar_dado():
     return random.randint(1, 6)
 
+
 #DEFINICION E INICIALIZACION DE VARIABLES
 opc = -1 #VARIABLE USADA PARA EL MENU PRINCIPAL
 #PROCESOS (MENU PRINCIPAL)
@@ -330,7 +353,7 @@ while (opc !=0): #MENU PRINCIPAL DE LOS JUEGOS, SE REPETIRA HASTA QUE EL USUARIO
     print("3 - PIEDRA PAPEL O TIJERA (1 JUGADOR)") #IGNI
     print("4 - AHORCADO (2 JUGADORES)") #ENRI estuvo aqui
     print("5 - BATALLA DE DADOS (1 JUGADOR)") #Manu
-    print("6 - Juego F") #Juli
+    print("6 - DESAFIO MATEMATICO (1 JUGADOR)") #Juli
     print("0 - SALIR")
     opc=ingresoNum()
     LimpiarPantalla()
@@ -347,7 +370,7 @@ while (opc !=0): #MENU PRINCIPAL DE LOS JUEGOS, SE REPETIRA HASTA QUE EL USUARIO
     elif(opc == 5):
         reglas = "1. Se juegan 5 rondas. \n 2. En cada ronda el jugador y la computadora lanzan un dado. \n 3. El número más alto gana la ronda. \n 4. Si ambos sacan el mismo número, hay empate. \n 5. Al finalizar las 5 rondas, gana quien tenga más puntos."
     elif(opc == 6):
-        reglas = "Reglas del juego F (EN DESARROLLO)"
+        reglas = "resuelve corectamente las 5 operaciones y gana puntos"
     elif(opc == 0):
         print("Gracias vuelva pronto")
     if(opc < 7 and opc > 0):
