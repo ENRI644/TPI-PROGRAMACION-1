@@ -54,6 +54,7 @@ def controlMenus (mensaje,opc): #FUNCION PARA CONTROLAR LOS MENUS ENTRE EL JUEGO
             if(jugar == 0): #VUELVE AL MENU PRINCIPAL
                 return
             elif(jugar == 1): #COMIENZA EL JUEGO
+                LimpiarPantalla()
                 if opc == 4:
                     Juego4()
                 elif opc == 6:
@@ -68,60 +69,67 @@ def controlMenus (mensaje,opc): #FUNCION PARA CONTROLAR LOS MENUS ENTRE EL JUEGO
                     print("LLAMO AL JUEGO 5")
             else:
                 print("OPCION INVALIDA, INGRESE 1 PARA JUGAR O 0 PARA VOLVER AL MENU")
+            jugar = -1
 
 def Juego4 (): #AHORCADO
-    print("Ahorcado")
-    while jugar != 0 and jugar != 1:
-        print("¿Desea jugar (Ingrese 1) o volver al menu?(Ingrese 0)")
-        jugar = ingresoNum()
-        if(jugar == 0): #VUELVE AL MENU PRINCIPAL
-            return
-        elif(jugar == 1): #COMIENZA EL JUEGO
-            palabra = ""
-            vidas = 6
-            letrasErradas = []
-            palabra = input("ingrese la palabra a adivinar: ")
-            #HACER ELCODIGO DEL JUEGO.
-            palabraVec = PalabraVector(palabra) #PASO LA PALÑABRA A UN VECTOR
-            adivina = PalabraOculta(palabraVec) #USO UN VECTOR AUXILIAR PARA MOSTRAR LOS GUIONES
-            aciertos = 0
-            while (vidas > 0) and (aciertos < len(adivina)) : #CICLO DEL JUEGO.
-                LimpiarPantalla()
-                band = True
-                print(adivina)
-                print(f"Ingrese una letra: (vidas: {vidas}, letras erradas: {letrasErradas})")
-                letra = input("")
-                for i in range(len(palabraVec)):
-                    if ((letra == palabraVec[i]) and (letra != adivina[i])):
-                        adivina[i] = letra
-                        band = False #SI SE ENCONTRO LA LETRA CAMBIO LA BANDERA
-                        aciertos += 1
-                if band: #SI NO SE CAMBIO LA BANDERA, NO ACERTO LETRA, RESTO VIDA.
-                    vidas -= 1
-                    letrasErradas.append(letra)
-            if (aciertos == len(adivina)):
-                print("GNASTE, ADIVINASTE LA PALABRA")
-            else:
-                print("PERDISTE, te quedaste sion vidas. La palabra era: ", palabra)
-            #print("FUNCIONO")
-            jugar = -1 #RESETEO LA VARIABLE PARA QUE SE VUELVA A PREGUNTAR AL TERMINAR EL JUEGO
+    print("AHORCADO")
+    palabra = ""
+    vidas = 6
+    letrasErradas = []
+    palabra = input("ingrese la palabra a adivinar: ")
+    #HACER ELCODIGO DEL JUEGO.
+    palabraVec = PalabraVector(palabra) #PASO LA PALÑABRA A UN VECTOR
+    adivina = PalabraOculta(palabraVec) #USO UN VECTOR AUXILIAR PARA MOSTRAR LOS GUIONES
+    aciertos = 0
+    while (vidas > 0) and (aciertos < len(adivina)) : #CICLO DEL JUEGO.
+        LimpiarPantalla()
+        band = True
+        print(adivina)
+        print(f"Ingrese una letra: (vidas: {vidas}, letras erradas: {letrasErradas})")
+        letra = input("")
+        for i in range(len(palabraVec)):
+            if ((letra == palabraVec[i]) and (letra != adivina[i])):
+                adivina[i] = letra
+                band = False #SI SE ENCONTRO LA LETRA CAMBIO LA BANDERA
+                aciertos += 1
+        if band: #SI NO SE CAMBIO LA BANDERA, NO ACERTO LETRA, RESTO VIDA.
+            vidas -= 1
+            letrasErradas.append(letra)
+        if (aciertos == len(adivina)):
+            print("GNASTE, ADIVINASTE LA PALABRA")
         else:
-            print("OPCION INVALIDA, INGRESE 1 PARA JUGAR O 0 PARA VOLVER AL MENU")
+            print("PERDISTE, te quedaste sion vidas. La palabra era: ", palabra)
+    #print("FUNCIONO")
+    return
 
 def Juego6 (): #VEINTIUNO
-    jugar = -1
-    print("REGLAS:")
-    print("El objetivo del juego es sumar 21 o acercarse lo mas posible sin pasarse, el jugador que se pase pierde")
-    while (jugar != 0 and jugar != 1):
-        print("¿Desea jugar (Ingrese 1) o volver al menu?(Ingrese 0)")
-        jugar = ingresoNum()
-        if(jugar == 0): #VUELVE AL MENU PRINCIPAL
-            return
-        elif(jugar == 1): #COMIENZA EL JUEGO
-            print("Cuantos jugadores son (min 1 max 4)?")
-            jugadores = ingresoNum()
-        else:
-            print("OPCION INVALIDA, INGRESE 1 PARA JUGAR O 0 PARA VOLVER AL MENU")
+    jugadores = 0
+    while (jugadores < 1 or jugadores > 4): #CONTORLO QUE LOS JUGADORES SEAN CORRECTOS
+        print("VEINTIUNO")
+        print("Cuantos jugadores son (min 1 max 4)?")
+        jugadores = ingresoNum()
+        if (jugadores < 1 or jugadores > 4):
+            print("OPCION INVALIDA, INGRESE UN NUMERO ENTRE 1 Y 4")
+    #HACER EL CODIGO DEL JUEGO
+    return
+
+def Juego1 (): #JUEGO A
+    print("JUEGO A")
+    #HACER EL CODIGO DEL JUEGO A QUIEN CORRESPONDA
+    return
+def Juego2 (): #JUEGO B
+    print("JUEGO B")
+    #HACER EL CODIGO DEL JUEGO B QUIEN CORRESPONDA
+    return
+def Juego3 (): #JUEGO C
+    print("JUEGO C")
+    #HACER EL CODIGO DEL JUEGO C QUIEN CORRESPONDA
+    return
+def Juego5 (): #JUEGO E
+    print("JUEGO E")
+    #HACER EL CODIGO DEL JUEGO E QUIEN CORRESPONDA
+    return
+
 
 def PalabraVector (palabra): #FUNCION PARA TRANSFORMAR UNA PALABRA EN UN VECTOR DE LETRAS.
     vector = [0] * len(palabra)
@@ -162,6 +170,6 @@ while (opc !=0): #MENU PRINCIPAL DE LOS JUEGOS, SE REPETIRA HASTA QUE EL USUARIO
         #Juego6()
     elif(opc == 0):
         print("Gracias vuelva pronto")
-    if(opc > 6 or opc < 0):
+    if(opc < 7 and opc > 0):
         controlMenus(reglas,opc) #LLAMO A LA FUNCION Y LE PASO LAS REGLAS Y EL NUMERO DEL JUEGO QUE SE ELIJIO
 #prueba0 = int(input(print("Ingrese un numero")))
