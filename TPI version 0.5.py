@@ -43,11 +43,34 @@ def LimpiarPantalla (): #FUNCION PARA "LIMPIAR" LA PANTALLA.
     print("\n" * 100)
     return
 
-def Juego4 (): #AHORCADO
+def controlMenus (mensaje,opc): #FUNCION PARA CONTROLAR LOS MENUS ENTRE EL JUEGO ELEJIDO Y EL MENU PRINCIPAL.
     jugar = -1
+    while (jugar != 0) and (jugar != 1):
+        print("REGLAS DEL JUEGO:")
+        print(mensaje)
+        while jugar != 0 and jugar != 1:
+            print("¿Desea jugar (Ingrese 1) o volver al menu?(Ingrese 0)")
+            jugar = ingresoNum()
+            if(jugar == 0): #VUELVE AL MENU PRINCIPAL
+                return
+            elif(jugar == 1): #COMIENZA EL JUEGO
+                if opc == 4:
+                    Juego4()
+                elif opc == 6:
+                    Juego6()
+                elif opc == 1:
+                    print("LLAMO AL JUEGO 1")
+                elif opc == 2:
+                    print("LLAMO AL JUEGO 2")   
+                elif opc == 3:
+                    print("LLAMO AL JUEGO 3")
+                elif opc == 5:
+                    print("LLAMO AL JUEGO 5")
+            else:
+                print("OPCION INVALIDA, INGRESE 1 PARA JUGAR O 0 PARA VOLVER AL MENU")
+
+def Juego4 (): #AHORCADO
     print("Ahorcado")
-    print("REGLAS: ")
-    print("2 jugadores, el primero ingresa una palabra y el segundo debe adivinarla letra por letra, tiene 6 vidas")
     while jugar != 0 and jugar != 1:
         print("¿Desea jugar (Ingrese 1) o volver al menu?(Ingrese 0)")
         jugar = ingresoNum()
@@ -131,10 +154,14 @@ while (opc !=0): #MENU PRINCIPAL DE LOS JUEGOS, SE REPETIRA HASTA QUE EL USUARIO
         print("OPCION INVALIDA, INGRESE UN NUMERO ENTRE 0 Y 6")
     elif(opc == 4):
         #print("LLAMO AL JUEGO 4")
-        Juego4()
+        #Juego4()
+        reglas = "2 jugadores, el primero ingresa una palabra y el segundo debe adivinarla letra por letra, tiene 6 vidas"
     elif(opc == 6):
         #print("LLAMO AL JUEGO 6")
-        Juego6()
+        reglas = "El objetivo del juego es sumar 21 o acercarse lo mas posible sin pasarse, el jugador que se pase pierde"
+        #Juego6()
     elif(opc == 0):
         print("Gracias vuelva pronto")
+    if(opc > 6 or opc < 0):
+        controlMenus(reglas,opc) #LLAMO A LA FUNCION Y LE PASO LAS REGLAS Y EL NUMERO DEL JUEGO QUE SE ELIJIO
 #prueba0 = int(input(print("Ingrese un numero")))
