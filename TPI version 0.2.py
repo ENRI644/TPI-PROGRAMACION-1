@@ -28,3 +28,35 @@
 # Ingresa tu opción:
 # *****************************************************
 
+def ingresoNum (): #FUNCION PARA ASEGURARME QUE SE INGRESA UN NUMERO.
+    band = True
+    while (band):
+        try:
+            num = int(input(print("Ingrese un numero")))
+            band = False
+        except(ValueError):
+            print("ERROR AL INGRESAR EL DATO, DEBE SER NUMERO")
+    return num
+
+#DEFINICION E INICIALIZACION DE VARIABLES
+opc = -1 #VARIABLE USADA PARA EL MENU PRINCIPAL
+
+while (opc !=0): #MENU PRINCIPAL DE LOS JUEGOS, SE REPETIRA HASTA QUE EL USUARIO DECIDA SALIR INGRESANDO 0.
+    print("¿Que juego desea probar?")
+    print("1 - Juego A")
+    print("2 - Juego B")
+    print("3 - Juego C")
+    print("4 - Juego D")
+    print("5 - Juego E")
+    print("6 - Juego F")
+    print("0 - SALIR")
+    opc=ingresoNum()
+    if(opc > 6 or opc < 0):
+        print("OPCION INVALIDA, INGRESE UN NUMERO ENTRE 0 Y 6")
+    elif(opc == 4):
+        print("LLAMO AL JUEGO 4")
+    elif(opc == 6):
+        print("LLAMO AL JUEGO 6")
+    elif(opc == 0):
+        print("Gracias vuelva pronto")
+#prueba0 = int(input(print("Ingrese un numero")))
